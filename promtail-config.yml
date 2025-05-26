@@ -1,0 +1,28 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: C:\monitoring\promtail\positions.yaml
+
+clients:
+  - url: http://localhost:3100/loki/api/v1/push
+
+scrape_configs:
+  - job_name: apache_error
+    static_configs:
+      - targets:
+          - http://4labweb
+        labels:
+          job: apache_logs
+          log_type: error
+          __path__: C:\OSPanel\logs\domains\4labweb_apache_error.log
+
+  - job_name: apache_access
+    static_configs:
+      - targets:
+          - http://4labweb
+        labels:
+          job: apache_logs
+          log_type: access
+          __path__: C:\OSPanel\logs\domains\4labweb_apache_access.log
